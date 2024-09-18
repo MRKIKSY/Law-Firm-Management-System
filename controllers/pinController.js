@@ -1,20 +1,24 @@
 import Pin from '../models/Pin.js';
 
-// Create a new PIN
-export const createPin = async (req, res) => {
+export const login = async (req, res) => {
   const { pin } = req.body;
 
-  if (!pin || pin.length !== 6) {
-    return res.status(400).json({ message: 'Pin must be 6 digits long' });
-  }
-
   try {
-    // Optionally check if a PIN already exists and handle it accordingly
-    await Pin.deleteMany({}); // Delete existing PINs before adding a new one
-    const newPin = new Pin({ pin });
-    await newPin.save();
-    res.status(201).json({ message: 'PIN created successfully', newPin });
+    console.log('Received PIN:', pin); // Debugging
+    const storedPin = await Pin.findOne();  // Retrieve the stored PIN from the database
+    
+    if (storedPin) {
+      console.log('Stored PIN:', storedPin.pin); // Debugging
+      if (storedPin.pin === pin) {
+        res.json({ success: true, token: 'valid_token' });  // Return a token on success
+      } else {
+        res.status(401).json({ success: false, message: 'Invalid PIN' });  // Invalid PIN
+      }
+    } else {
+      res.status(404).json({ success: false, message: 'No PIN found' });  // No PIN in the database
+    }
   } catch (error) {
-    res.status(500).json({ message: 'Error creating PIN', error });
+    console.error('Error:', error); // Debugging
+    res.status(500).json({ success: false, message: 'Server error' });
   }
 };
