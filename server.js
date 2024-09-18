@@ -15,7 +15,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: ["https://frontend-law-firm-database.onrender.com","http://localhost:5173","http://localhost:5000"],
+  origin: ["https://law-firm-management-system-1.onrender.com","https://frontend-law-firm-database.onrender.com","http://localhost:5173","http://localhost:5000"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
