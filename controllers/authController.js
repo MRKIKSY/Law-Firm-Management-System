@@ -15,7 +15,6 @@
 //   }
 // };
 
-
 import Pin from '../models/Pin.js';  // Import the Pin model
 
 export const login = async (req, res) => {
@@ -24,11 +23,15 @@ export const login = async (req, res) => {
   try {
     // Retrieve the stored PIN from the database
     const storedPin = await Pin.findOne();
-    console.log('Stored PIN:', storedPin);  // Debugging log
+    console.log('Stored PIN Document:', storedPin);  // Debugging log
     console.log('PIN from request:', pin);  // Debugging log
-    
+
+    if (!storedPin) {
+      return res.status(500).json({ success: false, message: 'No PIN found in the database' });
+    }
+
     // Check if the stored PIN matches the provided PIN
-    if (storedPin && storedPin.pin === pin) {
+    if (storedPin.pin === pin) {
       res.json({ success: true, token: 'valid_token' });  // Return a token on success
     } else {
       res.status(401).json({ success: false, message: 'Invalid PIN' });  // Invalid PIN
