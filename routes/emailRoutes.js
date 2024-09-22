@@ -1,8 +1,9 @@
-const express = require('express');
+import express from 'express';
+import { sendEmail } from '../controllers/emailController.js'; // Update the path if necessary
+
 const router = express.Router();
-const { sendEmail } = require('../controllers/emailController');
 
 // Route to handle sending emails
 router.post('/send-email', sendEmail);
 
-module.exports = router;
+export default router; // Use ES module export

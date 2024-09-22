@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const emailSchema = new mongoose.Schema({
   senderName: { type: String, required: true },
@@ -10,4 +10,4 @@ const emailSchema = new mongoose.Schema({
   dateSent: { type: Date, default: Date.now }, // Automatically set the date sent
 });
 
-module.exports = mongoose.model('Email', emailSchema);
+export default mongoose.model('Email', emailSchema);

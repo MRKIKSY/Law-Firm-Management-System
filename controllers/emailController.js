@@ -1,18 +1,18 @@
-const nodemailer = require('nodemailer');
-const Email = require('../models/emailModel');
+import nodemailer from 'nodemailer'; // Use ES module import
+import Email from '../models/emailModel.js'; // Update the path if necessary
 
-exports.sendEmail = async (req, res) => {
+export const sendEmail = async (req, res) => {
   const { email, subject, body, bcc, cc, senderName } = req.body;
 
-  let transporter = nodemailer.createTransport({
-    service: 'Gmail', // You can configure another email service like SendGrid
+  const transporter = nodemailer.createTransport({
+    service: 'Gmail', // You can configure another email service if needed
     auth: {
       user: process.env.EMAIL_USER, // Your email
       pass: process.env.EMAIL_PASS, // Your email password or app-specific password
     },
   });
 
-  let mailOptions = {
+  const mailOptions = {
     from: `"${senderName}" <${process.env.EMAIL_USER}>`,
     to: email,
     subject: subject,
