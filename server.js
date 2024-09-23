@@ -16,7 +16,7 @@ connectDB();
 
 app.use(cors({
   origin: [
-    "https://law-firm-management-system-1.onrender.com",
+    "https://law-firm-management-system-1.onrender.com","https://frontend-law-firm-database.onrender.com","http://localhost:5000",
     "http://localhost:5173",
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
